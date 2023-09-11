@@ -23,9 +23,7 @@ interface Props {
     if (endpoint.startsWith('/')) {
       endpoint = endpoint.slice(1);
     }
-  
-    // const url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint}`);
-    // const url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint}`);
+
     const url = new URL(`${import.meta.env.STRAPI_URL}/api/${endpoint}`);
   
     if (query) {
@@ -35,14 +33,15 @@ interface Props {
     }
     const res = await fetch(url.toString());
     let data = await res.json();
-  
+    
     if (wrappedByKey) {
       data = data[wrappedByKey];
     }
-  
+    
     if (wrappedByList) {
       data = data[0];
     }
-  
+    
+    if(res.status != 200) return null as T;
     return data as T;
   }

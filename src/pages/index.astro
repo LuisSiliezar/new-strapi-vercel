@@ -1,29 +1,32 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
 import type RegularUser from "../interfaces/regularUser";
 import fetchApi from "../lib/strapi";
-const articles = await fetchApi<RegularUser[]>({
-  endpoint: 'regular-users', 
-  wrappedByKey: 'data', 
+const articles = await fetchApi<RegularUser[] | null>({
+  endpoint: "screessns",
+  wrappedByKey: "data",
 });
-console.log("DATA",articles);
+console.log("DATA", articles);
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-<p style="color:white; font-weight:bold;">STRAPI DATA INTEGRATION</p>
-		<ul>
-			<!-- {
-				articles.length === 0 ||  articles === null || undefined? 
-				<p>NO DATA</p>
-				:articles.map((article) => (
-				  <a href={`/${article.attributes.slug}/`} style="color:white">
-					{article.attributes.name}
-				  </a>
-				  <br>
-				))
-			} -->
-		  </ul>
-	</main>
+  <main>
+    <p style="color:white; font-weight:bold;">STRAPI DATA INTEGRATION</p>
+    <ul>
+      {
+        articles === null || undefined ? (
+          <p style="color:white">NO DATA</p>
+        ) : (
+          articles.map((article) => (
+            <>
+              <a href={`/${article.attributes.slug}/`} style="color:white">
+                {article.attributes.name}
+              </a>
+              <br />
+            </>
+          ))
+        )
+      }
+    </ul>
+  </main>
 </Layout>
-
