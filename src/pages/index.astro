@@ -2,8 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import type RegularUser from "../interfaces/regularUser";
 import fetchApi from "../lib/strapi";
-const articles = await fetchApi<RegularUser[] | null>({
-  endpoint: "screessns",
+const articles = await fetchApi<any[] | null>({
+  endpoint: "screens",
   wrappedByKey: "data",
 });
 console.log("DATA", articles);
