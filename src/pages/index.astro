@@ -1,18 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
-import type RegularUser from "../interfaces/regularUser";
-import fetchApi from "../lib/strapi";
-const articles = await fetchApi<RegularUser[]>({
-  endpoint: 'regular-users', 
-  wrappedByKey: 'data', 
-});
-console.log("DATA",articles);
+// import type RegularUser from "../interfaces/regularUser";
+// import fetchApi from "../lib/strapi";
+// const articles = await fetchApi<RegularUser[]>({
+//   endpoint: 'regular-users', 
+//   wrappedByKey: 'data', 
+// });
+// console.log("DATA",articles);
 ---
 
 <Layout title="Welcome to Astro.">
 	<main>
-<p>SDJASIDJAKSJDK</p>
+<p style="color:white">STRAPI DATA INTEGRATION</p>
 		<!-- <ul>
 			{
 				articles.length === 0 ||  articles === null || undefined? 
