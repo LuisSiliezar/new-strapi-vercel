@@ -1,32 +1,37 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import type RegularUser from "../interfaces/regularUser";
+import { Image } from "astro:assets";
 import fetchApi from "../lib/strapi";
+import Card from "../components/Card.astro";
 const articles = await fetchApi<any[] | null>({
-  endpoint: "screens",
+  endpoint: "screens?populate=*",
   wrappedByKey: "data",
 });
 console.log("DATA", articles);
 ---
 
-<Layout title="Welcome to Astro.">
-  <main>
-    <p style="color:white; font-weight:bold;">STRAPI DATA INTEGRATION</p>
-    <ul>
+<Layout title="STRAPI INTEGRATION">
+  <main style="justify-content: center; margin-left: 16px; margin-right: 16px;">
+    <p
+      style="color:white; font-weight:bold;"
+    >
+      STRAPI DATA INTEGRATION
+    </p>
+    <div style="display: flex;sp">
       {
         articles === null || undefined ? (
           <p style="color:white">NO DATA</p>
         ) : (
           articles.map((article) => (
-            <>
-              <a href={`/${article.attributes.slug}/`} style="color:white">
-                {article.attributes.name}
-              </a>
-              <br />
-            </>
+              <Card
+                title={article.attributes.name}
+                body={article.attributes.description}
+                src={`${article.attributes.photo.data.attributes.formats.small.url}`}
+              />
           ))
         )
       }
-    </ul>
+    </div>
   </main>
 </Layout>
